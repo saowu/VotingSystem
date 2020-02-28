@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Polls System</title>
+    {% load static %}
+    <!-- load CSS -->
+    <link rel="stylesheet" href="{% static 'polls/css/googleapis.fonts.css' %}">
+    <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static 'polls/css/materialize.min.css' %}">
+    <!-- https://materializecss.com -->
+    <link rel="stylesheet" href="{% static 'polls/css/bootstrap.min.css' %}">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{% static 'polls/css/all.min.css' %}">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="{% static 'polls/css/templatemo-style.css' %}">
+    <!-- Template Mo style -->
+    <link rel="stylesheet" href="{% static 'polls/css/top.css' %}">
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">感谢您，来到这里！</h1>
+            <p class="lead">本问卷实行自由匿名制，所有数据只用于统计分析， 请您放心填写。题目选项无对错之分，请您按自己的实际情况填写。谢谢您的帮助。</p>
+        </div>
+    </div>
+
+    <div class="page-header text-center" style="margin-bottom: 45px">
+        <h1 style="color:#EE6363;font-family: 'STLiti',serif;"><big>{{ title }}</big></h1>
+    </div>
+    <div class="progress sticky-top active">
+        <div id="progress" class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 0%"
+             aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr>
+        </div>
+    </div>
+    <form action="{% url 'polls:vote' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            {% if latest_question_list %}
+                {% for question in latest_question_list %}
+                    <div class="col-12">
+                        <span class="tm-question-header">Question {{ forloop.counter }}</span>
+                        <p>{{ question.question_text }}</p>
+                        <div class="tm-q-choice-container">
+                            {% for choice in question.choice_set.all %}
+                                {% if question.is_checkbox %}
+                                    <label class="tm-q-choice tm-q-choice-2-col">
+                                        <div class="mb-3">
+                                            <input type="checkbox" class="filled-in tm-checkbox"
+                                                   name="question-{{ question.id }}[]"
+                                                   value="{{ choice.id }}"/>
+                                            <span>{{ choice.choice_text }}</span>
+                                        </div>
+                                        {#<img src="img/img-1x1-4.jpg" alt="Image" class="img-fluid">#}
+                                    </label>
+                                {% else %}
+                                    <label class="tm-q-choice tm-q-choice-2-col">
+                                        <div class="mb-3">
+                                            <input class="tm-radio-group-2 with-gap" name="question-{{ question.id }}"
+                                                   type="radio"
+                                                   value="{{ choice.id }}"/>
+                                            <span>{{ choice.choice_text }}</span>
+                                        </div>
+                                        {#<img src="{% static 'polls/img/img-1x1-4.jpg' %}" alt="Image" class="img-fluid">#}
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- col-12 -->
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <h2 class="tm-question-none">No question are available!</h2>
+                </div>
+                <!-- col-12 -->
+                <div class="col-12">
+                    <hr>
+                </div>
+            {% endif %}
+            <!-- col-12 -->
+            <div class="col-12">
+                <h2 class="tm-question-header tm-question-header-mt">Please tell a little bit about yourself</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="inputName">您的姓名</label>
+                            <input type="text" class="form-control browser-default" id="inputName" name="name"
+                                   aria-describedby="nameHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">您的邮箱</label>
+                            <input type="email" class="form-control browser-default" id="inputEmail" name="email"
+                                   aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="tm-choice-mt">
+                            <label class="tm-q-choice">
+                                <input type="radio" name="gender" class="with-gap" value="male"/>
+                                <span>男</span>
+                            </label>
+                            <label class="tm-q-choice tm-choice-ml">
+                                <input type="radio" name="gender" class="with-gap" value="female"/>
+                                <span>女</span>
+                            </label>
+                        </div>
+                        <div class="input-field col tm-dropdown-container">
+                            <select class="" name="occupation" id="occupation">
+                                <option value="select">你的职业</option>
+                                <option value="首席执行官">首席执行官</option>
+                                <option value="软件架构师">软件架构师</option>
+                                <option value="专案经理">专案经理</option>
+                                <option value="Web开发人员">Web开发人员</option>
+                                <option value="其他职业">其他职业</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <label for="message" class="mb-3">附加意见</label>
+                        <textarea class="p-3" name="message" id="message" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-center tm-submit-container">
+                <button type="submit" class="btn btn-primary tm-btn-submit">提交
+                </button>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+        </div> <!-- row -->
+    </form>
+
+    <div class="row">
+        <div class="col-12">
+            <footer>
+                <p class="text-center mb-3 tm-footer-text">Copyright &copy; <a href="/admin" target="_blank"><strong>saowu</strong></a>
+                    2020</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<div class="float-bar vm_" id="top-icon" style="visibility:hidden">
+    <div class="float-bar-item vm_" onclick="topFunction()"
+         style="border-radius: 4px; border: 1px solid rgb(243, 244, 245);">
+        <div class="float-bar-item-icon float-bar-item-hasArrow gray-c pointer-orange vm_">
+            <i class="float-bar-t-35 xuicon xuicon-top vm_"></i>
+        </div>
+        <div class="float-bar-item-content vm_" style="bottom: 3px; padding: 10px 50px;">
+            <div class="gray-9 text-lg vm_">回到顶部</div>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+    window.onload = function () {
+        let qlist = [];
+        let count = {{ count }};
+        let percentage = "0%";
+        $("input[name^='question']").change(function () {
+            if (qlist.find(value => Object.is(this.name, value)) === undefined) {
+                qlist.push(this.name);
+            }
+            percentage = Math.floor(qlist.length / count * 100) + "%";
+            document.getElementById("progress").style.width = percentage;
+            document.getElementById("progress").innerText = percentage;
+        });
+
+        $("button[type='submit']").click(function isComplete() {
+            if (qlist.length === count) {
+                alert('感谢您的支持！');
+                return true;
+            } else {
+                alert('请完成答题后提交！');
+                return false;
+            }
+        });
+    }
+</script>
+<script src="{% static 'polls/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'polls/js/materialize.min.js' %}"></script>
+<script src="{% static 'polls/js/page.js' %}"></script>
+</body>
+</html>

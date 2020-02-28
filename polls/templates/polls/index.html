@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Polls System</title>
+    {% load static %}
+    <!-- load CSS -->
+    <link rel="stylesheet" href="{% static 'polls/css/googleapis.fonts.css' %}">
+    <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static 'polls/css/materialize.min.css' %}">
+    <!-- https://materializecss.com -->
+    <link rel="stylesheet" href="{% static 'polls/css/bootstrap.min.css' %}">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{% static 'polls/css/all.min.css' %}">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="{% static 'polls/css/templatemo-style.css' %}">
+    <!-- Template Mo style -->
+    <link rel="stylesheet" href="{% static 'polls/css/top.css' %}">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <i class="far fa-comments fa-5x tm-site-icon"></i>
+            <h1 class="tm-site-name">Voting System</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="tm-parallax"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tm-intro">
+            <div class="col-sm-12 col-md-8 mb-md-0 mb-4 tm-intro-left">
+                <p class="mb-0">
+                    问卷法也称民意测验法。它的发源地是美国，其起源可以追溯到一个半世纪以前，现在仍被许多组织所广泛采用，象哈里斯组织、美国民意研究所、杨科洛维奇组织和罗帕组织等等。该方法是书面提问的方法，直接了解公众的需要，了解他们对企业或产品，或某一个问题的认识和看法。实际上这也是一种舆论研究。这里的民意，简言之，就是社会公众意见。民意可以推动公共关系工作目标的实现，进而帮助企业树立良好的形象。
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <em>
+                    <p class="tm-highlight">&ldquo;Your Opinion Matters&rdquo;</p>
+                </em>
+            </div>
+        </div>
+        <div class="col-12">
+            <hr>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">公开问卷</h1>
+        </div>
+        <div class="col-12">
+            <hr>
+        </div>
+    </div>
+
+    <div class="row" style="">
+        {% if questionnaires %}
+            {% for qs in questionnaires %}
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card" style="width: auto;height: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">问卷调查</h5>
+                            <p class="card-text">{{ qs.title }}</p>
+                            <div>
+                                <a href="{% url 'polls:get_questionnaire'  qs.id %}"
+                                   class="btn btn-outline-secondary btn-lg btn-block"
+                                   style="position: absolute;bottom: 5%;width:85%;">进入</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <h2 class="tm-question-none">No question are available!</h2>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <hr>
+        </div>
+        <div class="col-12">
+            <footer>
+                <p class="text-center mb-3 tm-footer-text">Copyright &copy;
+                    <a href="/admin" target="_blank"><strong>saowu</strong></a>
+                    2020</p>
+            </footer>
+        </div>
+    </div>
+
+    <div class="float-bar vm_" id="top-icon" style="visibility:hidden">
+        <div class="float-bar-item vm_" onclick="topFunction()"
+             style="border-radius: 4px; border: 1px solid rgb(243, 244, 245);">
+            <div class="float-bar-item-icon float-bar-item-hasArrow gray-c pointer-orange vm_">
+                <i class="float-bar-t-35 xuicon xuicon-top vm_"></i>
+            </div>
+            <div class="float-bar-item-content vm_" style="bottom: 3px; padding: 10px 50px;">
+                <div class="gray-9 text-lg vm_">回到顶部</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'polls/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'polls/js/materialize.min.js' %}"></script>
+<script src="{% static 'polls/js/page.js' %}"></script>
+</body>
+
+</html>
