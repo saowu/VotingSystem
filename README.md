@@ -1,6 +1,13 @@
 # VotingSystem
 >Django+sqlite3 编写的简单问卷调查系统
 
+
+[![GitHub issues](https://img.shields.io/github/issues/saowu/VotingSystem.svg)](https://github.com/saowu/VotingSystem/issues)
+[![GitHub forks](https://img.shields.io/github/forks/saowu/VotingSystem.svg)](https://github.com/saowu/VotingSystem/network)
+[![GitHub stars](https://img.shields.io/github/stars/saowu/VotingSystem.svg)](https://github.com/saowu/VotingSystem/stargazers)
+[![GitHub license](https://img.shields.io/github/license/saowu/VotingSystem.svg)](https://github.com/saowu/VotingSystem)
+
+
 #### 版本配置
 ```
 Package    Version
