@@ -23,7 +23,7 @@ sqlparse   0.3.0
 #### UI展示
 
 #####前台
-![FireShot Capture 002 - Polls System - 127.0.0.1.png](https://i.loli.net/2020/02/28/YcvaqThnyeL2OSx.png)
+![FireShot Capture 016 - Polls System - 127.0.0.1.png](https://i.loli.net/2020/03/17/T1yrMv6JD3FmzNk.png)
 ![FireShot Capture 001 - Polls System - 127.0.0.1.png](https://i.loli.net/2020/02/28/Lnzxfjy7JKaEPos.png)
 
 #####后台
